@@ -1,4 +1,4 @@
-# RcppORtools: Exploring integration of google's OR tools and R via RCpp
+# RcppORtools: Exploring integration of google's c++ ORtools library and R via Rcpp
 
 [Google OR's recent CP-SAT solver](https://developers.google.com/optimization/) has been made open source (Apache 2.0). I thought that it'd be interesting to explore its use via Rcpp.
 
@@ -13,10 +13,10 @@ Your system will need a copy of OR tools to link against.
 Example of a (single) knapsack problem [taken from the ORtools documentation]():
  
 ```
-library(RcppORtools)
+> library(RcppORtools)
 
  
- SKPProfits <- c(360, 83, 59,  130, 431, 67, 230, 52,  93,  125, 670, 892, 600,
+> SKPProfits <- c(360, 83, 59,  130, 431, 67, 230, 52,  93,  125, 670, 892, 600,
                  38,  48, 147, 78,  256, 63, 17,  120, 164, 432, 35,  92,  110,
                  22,  42, 50,  323, 514, 28, 87,  73,  78,  15,  26,  78,  210,
                  36,  85, 189, 274, 43,  33, 10,  19,  389, 276, 312)
