@@ -3,8 +3,9 @@ Title: Rcpp integration for google's ORtools
 Version: 0.1
 Authors@R: c( person("Adam", "Sardar", email = "adam@sardar.me.uk", role = c("aut", "cre")) )
 Maintainer: Adam Sardar <adam@sardar.me.uk>
-Description: Google have a fantastic set of tools for operations research. This package is in exploration of their linking to R.
-Depends: R (>= 3.3)
+Description: Google have a fantastic set of tools for operations research.
+    This package is in exploration of linking it to R via Rcpp and using it solve a few problems
+Depends: R (>= 3.1)
 License: MPL-2.0
 Encoding: UTF-8
 LazyData: true
