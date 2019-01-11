@@ -13,7 +13,9 @@ devtools::install_github("adamsardar/RcppORtools")
 
 Your system will need a copy of OR tools to link against. [BUILD DETAILS TO FOLLOW]
  
-## Example
+## Examples
+
+### Knapsack Problem
  
 A (single) knapsack problem [taken from the ORtools documentation](https://developers.google.com/optimization/bin/knapsack):
  
@@ -50,7 +52,7 @@ $is_optimal
 
      
 sum(SKPProfits[SKPsolution$packed_items]) # same as 'total_profit'
-[1] 850
+[1] 7534
 
 SKPWeights[SKPsolution$packed_items] # Items packed
 [1]  7  0 22 80 11 59 18  0  3  8 15 42  9  0 47 52 26  6 29 84  2  4 18  7 71
