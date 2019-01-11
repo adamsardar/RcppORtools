@@ -80,8 +80,8 @@ std::vector<std::vector<int64>> matrixToStdVecVec(IntegerMatrix mat2convert){
 // [[Rcpp::export]]
 List solveMultiKnapsackProblem(IntegerVector profits, IntegerMatrix weights, IntegerVector capacities){
 
-  assert(("The number of profit items must equal the number of weight items (columns).", profits.length() == weights.ncol() ));
-  assert(("The number of capacities must be equal to the number of per-item weights (rows)!", capacities.length() == weights.nrow() ));
+  assert(profits.length() == weights.ncol() && "The number of profit items must equal the number of weight items (columns).");
+  assert(capacities.length() == weights.nrow() && "The number of capacities must be equal to the number of per-item weights (rows)!");
   
   operations_research::KnapsackSolver solver(
       operations_research::KnapsackSolver::KNAPSACK_MULTIDIMENSION_BRANCH_AND_BOUND_SOLVER,
