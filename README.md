@@ -2,17 +2,20 @@
 
 [Google OR's recent CP-SAT solver](https://developers.google.com/optimization/) has been made open source (Apache 2.0) under the GoogleAI initiative. I thought that it'd be interesting to explore its use via Rcpp.
 
-At current, this package is very much in BETA. The aim is to smooth down some of the rough edges involved in mapping
-R objects to the C++ objects used by the library and also to export a handful of useful operations research solvers into R.
+At current, this package is very much in BETA. The aim is to smooth down some of the rough edges involved in mapping R objects to the C++ objects used by the library and also to export a handful of useful operations research solvers into R.
 
-Install the development version using:
+Install the development version by dowloading the latest version of [OR-tools](https://github.com/google/or-tools) (see Build Instructions below) before executing:
 
 ```
 devtools::install_github("adamsardar/RcppORtools")
 ```
 
-Your system will need a copy of OR tools to link against. [BUILD DETAILS TO FOLLOW]
- 
+## Build instructions
+
+Your system will need a copy of OR tools to link against. Download the latest release for your platform from [here](https://github.com/google/or-tools/releases) and set the `ORtoolsDIR` environment accordinging. Or simply sym-link the base directory (containing /lib and /include) to /opt/ORtools (the default location).
+
+At current, the package has only been tested on Linux. Windows build details to follow.
+
 ## Examples
 
 ### Knapsack Problem
