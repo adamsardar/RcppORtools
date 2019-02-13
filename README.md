@@ -4,7 +4,7 @@
 
 At current, this package is very much in BETA. The aim is to smooth down some of the rough edges involved in mapping R objects to the C++ objects used by the library and also to export a handful of useful operations research solvers into R.
 
-# Build instructions
+## Build instructions
 
 Your system will need a copy of OR tools to link against. Download the latest release of OR-tools for your platform from [here](https://github.com/google/or-tools/releases) and set the `ORtoolsDIR` environment accordinging. Or simply sym-link the base directory (containing /lib and /include) to /opt/ORtools (the default location).
 
@@ -18,7 +18,7 @@ At current, the package has only been tested on Linux. Windows build details to 
 
 ## Examples
 
-## Knapsack Problem
+### Knapsack Problem
  
 A (single) knapsack problem [taken from the ORtools documentation](https://developers.google.com/optimization/bin/knapsack):
  
