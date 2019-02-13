@@ -23,6 +23,8 @@ solution A named list of:
 Solve knapsack proble via google's brilliant OR tools lbirary.
 }
 \examples{
+# Taken from the OR-tools documentation examples:
+
 SKPProfits <- c(360, 83, 59,  130, 431, 67, 230, 52,  93,  125, 670, 892, 600,
                     38,  48, 147, 78,  256, 63, 17,  120, 164, 432, 35,  92,  110,
                     22,  42, 50,  323, 514, 28, 87,  73,  78,  15,  26,  78,  210,
