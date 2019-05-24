@@ -11,5 +11,4 @@ NO_SIGN_COMPARE = -Wno-sign-compare
 ORtools_LIBLOC=@ORtools_LIBLOC@
 ORtools_INCLOC=@ORtools_INCLOC@
 
-PKG_CPPFLAGS += -I$(ORtools_INCLOC) -I../inst/include/ $(NO_SIGN_COMPARE)
-PKG_LIBS += -L$(ORtools_LIBLOC) $(OR_TOOLS_LNK)
+PKG_CPPFLAGS = -I$(ORtools_INCLOC) -I../inst/include/ $(NO_SIGN_COMPARE)
