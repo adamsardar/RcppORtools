@@ -12,3 +12,4 @@ ORtools_LIBLOC=@ORtools_LIBLOC@
 ORtools_INCLOC=@ORtools_INCLOC@
 
 PKG_CPPFLAGS = -I$(ORtools_INCLOC) -I../inst/include/ $(NO_SIGN_COMPARE)
+PKG_LIB = -L$(ORtools_LIBLOC) $(OR_TOOLS_LNK)
