@@ -1,10 +1,11 @@
 Package: RcppORtools
 Title: Rcpp integration for google's ORtools
-Version: 0.1
+Version: 7.0
 Authors@R: c( person("Adam", "Sardar", email = "adam@sardar.me.uk", role = c("aut", "cre")) )
 Maintainer: Adam Sardar <adam@sardar.me.uk>
 Description: Google have a fantastic set of tools for operations research.
-    This package is in exploration of linking it to R via Rcpp and using it solve a few problems
+    This package is in exploration of linking it to R via Rcpp and using it solve a few problems. Package version
+    relates to the major.minor version of or-tools developed against.
 Depends: R (>= 3.1)
 License: MPL-2.0
 Encoding: UTF-8
@@ -12,7 +13,7 @@ LazyData: true
 LinkingTo: 
     Rcpp
 Imports: 
-    Rcpp
+    Rcpp (>= 1.0)
 RoxygenNote: 6.1.1
 Suggests: 
     knitr,
