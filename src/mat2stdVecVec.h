@@ -19,4 +19,4 @@ std::vector<std::vector<int64>> matrixToStdVecVec(IntegerMatrix mat2convert){
   
   return vecvec;
 }
-// This should probably be moved in to the includes at some stage. Think about Rcpp Honey
+// This should probably be moved in to the includes at some stage. Think about Rcpp Honey to seemlessly convet from R types to int64
