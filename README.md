@@ -6,7 +6,7 @@ At current, this package is very much in BETA. The aim is to smooth down some of
 
 ## Build instructions
 
-Your system will need a copy of OR tools to link against. Download the latest release of OR-tools for your platform from [here](https://github.com/google/or-tools/releases) and set the `ORtoolsDIR` environment accordinging. Or simply sym-link the base directory (containing /lib and /include) to /opt/ORtools (the default location).
+Your system will need a copy of OR tools to link against. Download the latest release of OR-tools for your platform from [here](https://github.com/google/or-tools/releases) and set the `ORtoolsDIR` environment variable accordinging. Or simply sym-link the base directory (containing /lib and /include) to /opt/ORtools (the default location).
 
 Then install the ORtools package
 
