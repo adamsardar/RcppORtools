@@ -1,0 +1,102 @@
+---
+title: "Download TSPlib"
+author: "Adam Sardar"
+date: "25/05/2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+TSPLIB is a repository of symmetric Treavelling Salesman Problems alongside their solutions.
+
+https://github.com/mastqe/tsplib
+
+Use the TSP package to read in files in TSPLIB format
+
+
+```{r}
+
+matrixTSPfile <- function(x){  any(grepl("FULL_MATRIX", readLines(x))) }
+
+euc2DTSPfile <- function(x){  any(grepl("EUC_2D", readLines(x))) }
+```
+
+
+```{r}
+
+library(TSP)
+library(data.table)
+
+TSPsolutions <- fread("~/tsplib/solutions",
+                      header = FALSE,
+                      col.names = c("problem","sep","distance","ness"),
+                      fill = TRUE)
+
+TSPsolutions[, isMatrix := matrixTSPfile(paste0("~/tsplib/",problem,".tsp")), by = problem]
+TSPsolutions[, isEuc2D := euc2DTSPfile(paste0("~/tsplib/",problem,".tsp")), by = problem]
+
+tsp_bays29 <- read_TSPLIB( "~/tsplib/bays29.tsp" )
+
+tsp_swiss42 <- read_TSPLIB( "~/tsplib/swiss42.tsp" )
+
+dMat_bays29 <- as.matrix(tsp_bays29)
+dMat_swiss42 <- as.matrix(tsp_swiss42)
+
+microbenchmark::microbenchmark(
+  solve_TSP(tsp_bays29),
+  singleVisitorTSP(dMat_bays29),
+  solve_TSP(tsp_swiss42),
+  singleVisitorTSP( dMat_swiss42 )
+)
+
+TSPsolutions[problem == "swiss42"]
+
+TSPsolutions[problem == "bays29"]
+
+```
+
+
+
+```{r}
+
+TSPsolutions[isEuc2D == TRUE]
+
+bier127_TSP <- read_TSPLIB( "~/tsplib/bier127.tsp" )
+
+
+dMat_bier127 <- round(as.matrix(dist(bier127_TSP)) * 1E4)
+
+sol <- singleVisitorTSP(dMat_bier127)
+
+sol$objective_dsitance/1E4
+
+microbenchmark::microbenchmark(, )
+
+system.time( solve_TSP(bier127_TSP) )
+system.time( singleVisitorTSP(dMat_bier127) )
+
+```
+
+```{r}
+
+
+vm1748_TSP <- read_TSPLIB( "~/tsplib/vm1748.tsp" )
+
+dMat_vm1748 <- round(as.matrix(dist(vm1748_TSP)) * 1E4)
+
+
+system.time( or_vm1748 <-  singleVisitorTSP(dMat_vm1748) )
+
+system.time( simple_vm1748 <- solve_TSP(vm1748_TSP) )
+
+
+TSPsolutions[problem == "vm1748"]
+
+simple_vm1748
+
+or_vm1748$objective_dsitance/1E4
+
+```
+
+So both are still are fair way away from optimal! But OR-tools finds a better solution than solve TSP (albeit much more slowly).
+
