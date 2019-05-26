@@ -6,6 +6,18 @@
 
 using namespace Rcpp;
 
+// singleVisitorTSP
+List singleVisitorTSP(IntegerMatrix distance_matrix, int startIndex);
+RcppExport SEXP _RcppORtools_singleVisitorTSP(SEXP distance_matrixSEXP, SEXP startIndexSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type distance_matrix(distance_matrixSEXP);
+    Rcpp::traits::input_parameter< int >::type startIndex(startIndexSEXP);
+    rcpp_result_gen = Rcpp::wrap(singleVisitorTSP(distance_matrix, startIndex));
+    return rcpp_result_gen;
+END_RCPP
+}
 // solveMultiKnapsackProblem
 List solveMultiKnapsackProblem(IntegerVector profits, IntegerMatrix weights, IntegerVector capacities);
 RcppExport SEXP _RcppORtools_solveMultiKnapsackProblem(SEXP profitsSEXP, SEXP weightsSEXP, SEXP capacitiesSEXP) {
@@ -21,6 +33,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_RcppORtools_singleVisitorTSP", (DL_FUNC) &_RcppORtools_singleVisitorTSP, 2},
     {"_RcppORtools_solveMultiKnapsackProblem", (DL_FUNC) &_RcppORtools_solveMultiKnapsackProblem, 3},
     {NULL, NULL, 0}
 };
