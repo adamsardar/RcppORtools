@@ -61,7 +61,7 @@ List singleVisitorTSP(IntegerMatrix distance_matrix,
       int from_node = manager.IndexToNode(from_index).value();
       int to_node = manager.IndexToNode(to_index).value();
       
-      return distance_matrix[from_node, to_node];
+      return distance_matrix(from_node, to_node);
     });
   
   // Define cost of each arc.
@@ -70,7 +70,7 @@ List singleVisitorTSP(IntegerMatrix distance_matrix,
   // Setting first solution heuristic.
   operations_research::RoutingSearchParameters searchParameters = operations_research::DefaultRoutingSearchParameters();
   
-  searchParameters.set_first_solution_strategy( operations_research::FirstSolutionStrategy::PATH_CHEAPEST_ARC );
+  searchParameters.set_first_solution_strategy( operations_research::FirstSolutionStrategy_Value_AUTOMATIC );
   
   // Solve the problem.
   const operations_research::Assignment* solution = routing.SolveWithParameters(searchParameters);
@@ -83,7 +83,8 @@ List singleVisitorTSP(IntegerMatrix distance_matrix,
       
   while (!routing.IsEnd(routeIndex)) {
     
-    routeIndex = solution->Value(routing.NextVar(routeIndex));
+    int64 previousIndex = routeIndex;
+    routeIndex = solution->Value(routing.NextVar(previousIndex));
     
     solutionPath.push_back( manager.IndexToNode(routeIndex).value()  + 1); //C++(0-based) to R(1-based) index addition
   }

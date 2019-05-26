@@ -3,6 +3,9 @@
 
 #' A simple TSP solver
 #'
+#'
+#' Givent a matrix of pairwise distances, compute a travelling salesman problem solution that visits each
+#' location once and only once before returning to the start.
 #' 
 #' @examples
 #' distMatrix <- matrix(c(
