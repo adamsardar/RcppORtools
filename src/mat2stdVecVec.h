@@ -20,3 +20,15 @@ std::vector<std::vector<int64>> matrixToStdVecVec(IntegerMatrix mat2convert){
   return vecvec;
 }
 // This should probably be moved in to the includes at some stage. Think about Rcpp Honey to seemlessly convet from R types to int64
+
+// [[Rcpp::export]]
+List reflectMatrixToVecVec(IntegerMatrix mat2convert){
+  
+  std::vector< std::vector<int64>> matAsVecVec = matrixToStdVecVec(mat2convert);
+  
+  List list( matAsVecVec.size() ) ;
+  for( int j=0; j<  matAsVecVec.size(); j++) list[j] = wrap( matAsVecVec[j].begin(), matAsVecVec[j].end() ) ;
+  
+  return wrap(list);
+}
+

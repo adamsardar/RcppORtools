@@ -6,6 +6,37 @@
 
 using namespace Rcpp;
 
+// ORtoolsMinorVersion
+IntegerVector ORtoolsMinorVersion();
+RcppExport SEXP _RcppORtools_ORtoolsMinorVersion() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(ORtoolsMinorVersion());
+    return rcpp_result_gen;
+END_RCPP
+}
+// ORtoolsMajorVersion
+IntegerVector ORtoolsMajorVersion();
+RcppExport SEXP _RcppORtools_ORtoolsMajorVersion() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(ORtoolsMajorVersion());
+    return rcpp_result_gen;
+END_RCPP
+}
+// reflectMatrixToVecVec
+List reflectMatrixToVecVec(IntegerMatrix mat2convert);
+RcppExport SEXP _RcppORtools_reflectMatrixToVecVec(SEXP mat2convertSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerMatrix >::type mat2convert(mat2convertSEXP);
+    rcpp_result_gen = Rcpp::wrap(reflectMatrixToVecVec(mat2convert));
+    return rcpp_result_gen;
+END_RCPP
+}
 // singleVisitorTSP
 List singleVisitorTSP(IntegerMatrix distance_matrix, int startIndex);
 RcppExport SEXP _RcppORtools_singleVisitorTSP(SEXP distance_matrixSEXP, SEXP startIndexSEXP) {
@@ -33,6 +64,9 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_RcppORtools_ORtoolsMinorVersion", (DL_FUNC) &_RcppORtools_ORtoolsMinorVersion, 0},
+    {"_RcppORtools_ORtoolsMajorVersion", (DL_FUNC) &_RcppORtools_ORtoolsMajorVersion, 0},
+    {"_RcppORtools_reflectMatrixToVecVec", (DL_FUNC) &_RcppORtools_reflectMatrixToVecVec, 1},
     {"_RcppORtools_singleVisitorTSP", (DL_FUNC) &_RcppORtools_singleVisitorTSP, 2},
     {"_RcppORtools_solveMultiKnapsackProblem", (DL_FUNC) &_RcppORtools_solveMultiKnapsackProblem, 3},
     {NULL, NULL, 0}
