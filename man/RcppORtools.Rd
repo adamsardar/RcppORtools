@@ -3,7 +3,6 @@
 \docType{package}
 \name{RcppORtools}
 \alias{RcppORtools}
-\alias{RcppORtools-package}
 \title{RcppORtools}
 \description{
 Playing about with googles AI tools
