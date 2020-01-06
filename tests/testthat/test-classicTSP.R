@@ -19,7 +19,7 @@ test_that("Inspect TSP against ORtools example", {
 
   startIndex <- 3
   
-  sol <- singleVisitorTSP(distMatric, startIndex)
+  sol <- singleVisitorTSP(distMatrix, startIndex)
 
   expect_equal(sol$route[duplicated(sol$route)], startIndex)
   expect_equal(sol$route[1], startIndex)
