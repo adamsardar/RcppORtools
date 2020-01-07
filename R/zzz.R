@@ -1,7 +1,5 @@
 .onAttach <- function(...) {
 
   packageStartupMessage("Linked against OR-tools version ", 
-                        ORtoolsMajorVersion(), 
-                        ".", 
-                        ORtoolsMinorVersion())
+                        paste0(orToolsVersion(), collapse = "."))
 }

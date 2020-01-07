@@ -2,13 +2,8 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #' @export
-ORtoolsMinorVersion <- function() {
-    .Call('_RcppORtools_ORtoolsMinorVersion', PACKAGE = 'RcppORtools')
-}
-
-#' @export
-ORtoolsMajorVersion <- function() {
-    .Call('_RcppORtools_ORtoolsMajorVersion', PACKAGE = 'RcppORtools')
+orToolsVersion <- function() {
+    .Call('_RcppORtools_orToolsVersion', PACKAGE = 'RcppORtools')
 }
 
 reflectMatrixToVecVec <- function(mat2convert) {

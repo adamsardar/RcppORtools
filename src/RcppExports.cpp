@@ -6,23 +6,13 @@
 
 using namespace Rcpp;
 
-// ORtoolsMinorVersion
-IntegerVector ORtoolsMinorVersion();
-RcppExport SEXP _RcppORtools_ORtoolsMinorVersion() {
+// orToolsVersion
+IntegerVector orToolsVersion();
+RcppExport SEXP _RcppORtools_orToolsVersion() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(ORtoolsMinorVersion());
-    return rcpp_result_gen;
-END_RCPP
-}
-// ORtoolsMajorVersion
-IntegerVector ORtoolsMajorVersion();
-RcppExport SEXP _RcppORtools_ORtoolsMajorVersion() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(ORtoolsMajorVersion());
+    rcpp_result_gen = Rcpp::wrap(orToolsVersion());
     return rcpp_result_gen;
 END_RCPP
 }
@@ -64,8 +54,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_RcppORtools_ORtoolsMinorVersion", (DL_FUNC) &_RcppORtools_ORtoolsMinorVersion, 0},
-    {"_RcppORtools_ORtoolsMajorVersion", (DL_FUNC) &_RcppORtools_ORtoolsMajorVersion, 0},
+    {"_RcppORtools_orToolsVersion", (DL_FUNC) &_RcppORtools_orToolsVersion, 0},
     {"_RcppORtools_reflectMatrixToVecVec", (DL_FUNC) &_RcppORtools_reflectMatrixToVecVec, 1},
     {"_RcppORtools_singleVisitorTSP", (DL_FUNC) &_RcppORtools_singleVisitorTSP, 2},
     {"_RcppORtools_solveMultiKnapsackProblem", (DL_FUNC) &_RcppORtools_solveMultiKnapsackProblem, 3},
