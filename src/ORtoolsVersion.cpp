@@ -9,7 +9,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 IntegerVector orToolsVersion() {
 
-  return IntegerVector::create(_["major"] =  operations_research::OrToolsMajorVersion(),
-                               _["minor"] = operations_research::OrToolsMinorVersion() 
+  return IntegerVector::create(_["MAJOR"] =  operations_research::OrToolsMajorVersion(),
+                               _["MINOR"] = operations_research::OrToolsMinorVersion() 
                               );
 }
