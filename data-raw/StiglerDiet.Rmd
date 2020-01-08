@@ -129,6 +129,8 @@ names(costVec) <- menuChoicesTable$Commodity
 constraintMat <- menuChoicesTable[,as.matrix(.SD) ,
       .SDcols = !c("Commodity","Price1939","Weight","Weight_unit","Weight_value")]
 
+# Need to normalise rows to amount per dollar
+
 row.names(constraintMat) <- menuChoicesTable$Commodity
 
 objectiveVec <- nutrientConstraintsTable$RDI_amount
