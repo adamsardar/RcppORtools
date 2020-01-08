@@ -1,0 +1,217 @@
+---
+title: "Stigler diet"
+author: "Adam Sardar"
+date: "1/8/2020"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+This is heavily planned on a blog post by google OR tools
+
+https://developers.google.com/optimization/lp/glop
+
+https://en.wikipedia.org/wiki/Stigler_diet
+
+https://pubsonline.informs.org/doi/pdf/10.1287/opre.49.1.1.11187
+
+https://math.berkeley.edu/~mgu/MA170F2015/Diet.pdf
+
+```{r}
+
+library(rvest)
+library(magrittr)
+library(data.table)
+
+StiglerDietData <- read_html("https://developers.google.com/optimization/lp/glop#data")
+
+################
+
+nutrientConstraintsTable <- StiglerDietData %>%
+  html_nodes("table") %>%
+  .[[2]] %>%
+  html_table() %>%
+  as.data.table()
+
+setnames(nutrientConstraintsTable,
+         c("Nutrient","RDI"))
+
+nutrientConstraintsTable[, RDI_value := str_extract(RDI, "[\\d,\\.]+") %>% str_replace(",","") %>% as.numeric()]
+nutrientConstraintsTable[, RDI_unit := str_extract(RDI, "\\w+$")]
+
+################
+
+menuChoicesTable <- StiglerDietData %>%
+  html_nodes("table") %>%
+  .[[3]] %>%
+  html_table() %>% 
+  as.data.table()
+
+setnames(menuChoicesTable,
+         c('Commodity', 'Weight', 'Price1939', nutrientConstraintsTable$Nutrient))
+
+# Units are in thousands - see article
+menuChoicesTable[, Calories := Calories*1000]
+menuChoicesTable[, Price1939 := as.numeric(Price1939)]
+
+# Weights taken from https://food.unl.edu/how-interpret-can-size-numbers
+menuChoicesTable[Weight == "No. 2", Weight := "20 oz."]
+menuChoicesTable[Weight == "No. 2 1/2", Weight := "29 oz."]
+
+menuChoicesTable[Weight == "10 1/2", Weight := "10.5"]
+
+menuChoicesTable[, Weight := str_replace_all(Weight, "1/2", "0.5")]
+menuChoicesTable[, Weight := str_replace_all(Weight, "1/4", "0.25")]
+
+
+menuChoicesTable[, Weight_unit := str_extract(Weight, "\\w+\\.?$") %>%
+                                  str_remove("\\."), 
+                 by = Commodity]
+
+menuChoicesTable[, Weight_value := str_extract(Weight, "[\\d\\.]+") %>% as.numeric(),
+                 by = Commodity]
+
+setcolorder(menuChoicesTable, c('Commodity', 'Weight_unit', 'Weight_value'))
+
+menuChoicesTable[,1:3]
+
+# Convert everything to oz
+menuChoicesTable[Weight_unit == "oz"] # Do nothing
+
+# 16 oz in a lb
+menuChoicesTable[Weight_unit == "lb", Weight_value := Weight_value * 16]
+menuChoicesTable[Weight_unit == "lb", Weight_unit := "oz"]
+
+# 32 fluid oz in a quart, assume density of water
+menuChoicesTable[Weight_unit == "qt", Weight_value := Weight_value * 32]
+menuChoicesTable[Weight_unit == "qt", Weight_unit := "oz"]
+
+# doz! 
+
+#Calorific infor taken from google
+
+menuChoicesTable[Weight_unit != "oz", 1:4]
+
+menuChoicesTable[
+  SJ( Commodity = 
+    c("Eggs","Cream","Mayonaise","Lemons","Oranges","Carrots","Celery","Lettuce"),
+  CalPer100g = 
+    c(155, 196, 680, 29, 47, 41, 18, 15)),
+  Weight_value := round(Calories/(CalPer100g * 3.5),digits = 2),
+  by = .EACHI, on = "Commodity"]
+
+
+menuChoicesTable[Commodity %in% c("Eggs","Cream","Mayonaise","Lemons","Oranges","Carrots","Celery","Lettuce"),
+                 Weight_unit := "oz"]
+
+################
+
+menuChoicesTable[,unique(Weight_unit)]
+
+
+
+menuChoicesTable[,1:3]
+
+```
+
+
+# Optimise for price
+
+```{r}
+
+# the solution vector x will be the length of the number of items: 77 in this case
+costVec <- menuChoicesTable[,Price1939] # price per oz
+
+costVec <- rep(1, length(menuChoicesTable$Commodity)) # everything will be per dollar spent
+names(costVec) <- menuChoicesTable$Commodity
+
+
+constraintMat <- menuChoicesTable[,as.matrix(.SD) ,
+      .SDcols = !c("Commodity","Price1939","Weight","Weight_unit","Weight_value")]
+
+row.names(constraintMat) <- menuChoicesTable$Commodity
+
+objectiveVec <- nutrientConstraintsTable$RDI_amount
+names(objectiveVec) <- nutrientConstraintsTable$Nutrient
+
+objectiveDir <- rep(">=", length(objectiveVec))
+
+
+
+constraintMat <- constraintMat[names(costVec),] # Ensure that matrix is sorted in same order
+
+objectiveVec[colnames(constraintMat)]
+
+```
+
+
+```{r}
+refSol <-
+  c(
+  `Wheat Flour (Enriched)` = 0.029519,
+  `Liver (Beef)` = 0.001893,
+  Cabbage = 0.011214,
+  Spinach = 0.005008,
+  `Navy Beans, Dried` = 0.061029)
+
+
+menuChoicesTable[SJ(Commodity = names(refSol),
+                    proportion = refSol),
+                refProp := proportion,
+                 on = "Commodity"]
+
+```
+
+
+```{r}
+library(Rglpk)
+
+
+opt <- Rglpk_solve_LP(
+  obj = costVec,
+  mat = t(constraintMat[names(costVec),]),
+  dir = rep(">=", length(objectiveVec)),
+  rhs = objectiveVec[colnames(constraintMat)],
+  types = "C",
+  max = FALSE
+)
+
+
+menuChoicesTable[SJ(Commodity = names(costVec),
+                    proportion = opt$solution),
+                solProp := proportion,
+                 on = "Commodity"]
+
+
+menuChoicesTable[solProp > 0, sum(Price1939*solProp)]
+
+menuChoicesTable[refProp > 0, sum(Price1939*refProp)]
+
+
+
+sols[ refProp > 0]
+
+```
+
+
+
+# No excess nutrients
+
+
+
+# Optimise for weight (off for a hike)
+
+# As calories change
+
+
+Use a larger dataset and current RDA
+
+https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/methods-and-application-of-food-composition-laboratory/mafcl-site-pages/sr17-sr28/
+
+
+# What about carbon?
+
+
+
+
+
