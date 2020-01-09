@@ -16,6 +16,7 @@ Imports:
     Rcpp (>= 1.0)
 RoxygenNote: 7.0.2
 Suggests:
+    data.table (>= 1.12),
     knitr,
     rmarkdown,
     purrr,

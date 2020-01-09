@@ -6,6 +6,17 @@
 \usage{
 singleVisitorTSP(distance_matrix, startIndex = 1L)
 }
+\arguments{
+\item{distance_matrix}{All-vs-all distances between cities}
+
+\item{startIndex}{The integer label of the city in which to start}
+}
+\value{
+solution A named list of:
+           'route' - The sequence of cities in which to travel to minimise the distance travelled overall (first and last cities are always the same of course)
+           'wall_time_ms' - time taken for solver in ms
+           'objective_dsitance' - total distance travelled
+}
 \description{
 Givent a matrix of pairwise distances, compute a travelling salesman problem solution that visits each
 location once and only once before returning to the start.

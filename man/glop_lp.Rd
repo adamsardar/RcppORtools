@@ -19,7 +19,7 @@ glop_lp(objectiveCoefs, constraintMat, constraintRHS, maximise = FALSE)
 solution A named list of:
            'optimum' - value of the objective funtion
            'solution' - a vector of equal length to objectiveCoefs, detailing the solution
-           'walltime.ms' - time taken by solved
+           'wall_time_ms' - time taken by solved
            'is_optimal -  status flag provided by the solver
            'is_feasible' -  status flag provided by the solver (if this is false, then the solver might not be able to solve the problem at all!)
 }

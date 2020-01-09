@@ -1,3 +1,5 @@
+library(data.table)
+
 test_that("Testing GLOP with the Stigler diet, for which we know the answer", {
 
   # Taken from https://developers.google.com/optimization/lp/glop
@@ -45,6 +47,8 @@ test_that("Testing GLOP with the Stigler diet, for which we know the answer", {
   
   expect_true(glopt$is_optimal)
   expect_true(glopt$is_feasible)
+  
+  expect_true(is.numeric(glopt$wall_time_ms))
   
   expect_equivalent( glopt$optimum, sum(refSol), tolerance = 1e-6)
 

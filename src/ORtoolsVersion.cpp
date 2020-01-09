@@ -5,6 +5,10 @@ using namespace Rcpp;
 
 #include "ortools/base/version.h"
 
+//' Display the version of or-tools that the package links to
+//' 
+//' Useful for data analysis provenance.
+//' 
 //' @export
 // [[Rcpp::export]]
 IntegerVector orToolsVersion() {

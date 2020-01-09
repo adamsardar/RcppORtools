@@ -20,7 +20,7 @@ using namespace Rcpp;
 //' @return solution A named list of:
 //'            'optimum' - value of the objective funtion
 //'            'solution' - a vector of equal length to objectiveCoefs, detailing the solution
-//'            'walltime.ms' - time taken by solved
+//'            'wall_time_ms' - time taken by solved
 //'            'is_optimal -  status flag provided by the solver
 //'            'is_feasible' -  status flag provided by the solver (if this is false, then the solver might not be able to solve the problem at all!)
 //' 
@@ -28,6 +28,7 @@ using namespace Rcpp;
 //' @references \url{https://en.wikipedia.org/wiki/Linear_programming}
 //' 
 //' @examples
+//' library(data.table)
 //' data(StiglerDiet)
 //' 
 //' costVec <- rep(1, length(StiglerDiet$foodAvailable$Commodity)) # everything will be per dollar spent, so the cvec is all 1's
@@ -121,7 +122,7 @@ List glop_lp(NumericVector objectiveCoefs,
   
   return Rcpp::List::create(Rcpp::Named("optimum") = objective->Value(),
                             Rcpp::Named("solution")  = solution,
-                            Rcpp::Named("walltime.ms")  = solver.wall_time(),
+                            Rcpp::Named("wall_time_ms")  = solver.wall_time(),
                             Rcpp::Named("is_optimal") = (result_status == operations_research::MPSolver::OPTIMAL),
                             Rcpp::Named("is_feasible") = (result_status == operations_research::MPSolver::FEASIBLE || result_status == operations_research::MPSolver::OPTIMAL) );
 }
