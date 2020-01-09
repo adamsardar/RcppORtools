@@ -14,8 +14,8 @@ r_packages:
   
 before_script:
   - wget -O /opt/ORtools.tar.gz https://github.com/google/or-tools/releases/download/v7.4/or-tools_ubuntu-18.04_v7.4.7247.tar.gz
-  - tar -xvf /opt/ORtools.tar.gz
-  - ln -s or-tools_Ubuntu-18.04-64bit_v7.4.7247/ /opt/ORtools
+  - tar -xvf /opt/ORtools.tar.gz -C /opt/
+  - ln -s /opt/or-tools_Ubuntu-18.04-64bit_v7.4.7247/ /opt/ORtools
   
 after_success:
   - test $TRAVIS_OS_NAME == "linux" && travis_wait Rscript -e 'covr::codecov()' # Only produce coverage on linux builds
