@@ -6,13 +6,12 @@ using namespace Rcpp;
 #include <ortools/linear_solver/linear_solver.h>
 #include <ortools/linear_solver/linear_solver.pb.h>
 
-// Argument names taken from Rglpk_solve_LP for consistency
 //' @export
 // [[Rcpp::export]]
 List glop_lp(NumericVector objectiveCoefs,
              NumericMatrix constraintMat,
-             NumericVector rhs,
-             bool max = false){
+             NumericVector constraintRHS,
+             bool maximise = false){
   
   operations_research::MPSolver solver("GoogleGLOPsolver", 
                                        operations_research::MPSolver::GLOP_LINEAR_PROGRAMMING);
@@ -46,7 +45,7 @@ List glop_lp(NumericVector objectiveCoefs,
   // constraints constraintMat
   for (int i=0; i < constraintMat.rows(); ++i){
     
-      solverConstraints.push_back( solver.MakeRowConstraint(rhs[i], infty) ); //RHS of row constraints.
+      solverConstraints.push_back( solver.MakeRowConstraint(constraintRHS[i], infty) ); //RHS of row constraints.
       // Only supporting continuous bounds at current
       // TODO support constraints other than GTE
       
@@ -57,20 +56,10 @@ List glop_lp(NumericVector objectiveCoefs,
       }
   }
   
-  const operations_research::MPSolver::ResultStatus result_status = solver.Solve();
+  objective->SetOptimizationDirection(maximise);
   
-  // Check that the problem has an optimal solution.
-  if (result_status != operations_research::MPSolver::OPTIMAL) {
-    
-    Rcout << "The problem does not have an optimal solution!" << std::endl;
-    if (result_status == operations_research::MPSolver::FEASIBLE) {
-      
-      Rcout << "A potentially suboptimal solution was found" << std::endl;
-    } else {
-      
-      Rcout << "The solver could not solve the problem." << std::endl;
-    }
-  }
+  // SOLVE
+  const operations_research::MPSolver::ResultStatus result_status = solver.Solve();
   
   NumericVector solution(objectiveCoefs.size());
   
@@ -82,6 +71,11 @@ List glop_lp(NumericVector objectiveCoefs,
     }
   }
   
-  return Rcpp::List::create(Rcpp::Named("is_optimal") = 1,
-                            Rcpp::Named("solution")  = solution);
+  // Bug in is_feasible
+  // include walltime
+  
+  return Rcpp::List::create(Rcpp::Named("optimum") = objective->Value(),
+                            Rcpp::Named("solution")  = solution,
+                            Rcpp::Named("is_optimal") = (result_status == operations_research::MPSolver::OPTIMAL),
+                            Rcpp::Named("is_feasible") = (result_status == operations_research::MPSolver::FEASIBLE) );
 }

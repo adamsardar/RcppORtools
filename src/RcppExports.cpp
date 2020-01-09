@@ -17,16 +17,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // glop_lp
-List glop_lp(NumericVector objectiveCoefs, NumericMatrix constraintMat, NumericVector rhs, bool max);
-RcppExport SEXP _RcppORtools_glop_lp(SEXP objectiveCoefsSEXP, SEXP constraintMatSEXP, SEXP rhsSEXP, SEXP maxSEXP) {
+List glop_lp(NumericVector objectiveCoefs, NumericMatrix constraintMat, NumericVector constraintRHS, bool maximise);
+RcppExport SEXP _RcppORtools_glop_lp(SEXP objectiveCoefsSEXP, SEXP constraintMatSEXP, SEXP constraintRHSSEXP, SEXP maximiseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type objectiveCoefs(objectiveCoefsSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type constraintMat(constraintMatSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type rhs(rhsSEXP);
-    Rcpp::traits::input_parameter< bool >::type max(maxSEXP);
-    rcpp_result_gen = Rcpp::wrap(glop_lp(objectiveCoefs, constraintMat, rhs, max));
+    Rcpp::traits::input_parameter< NumericVector >::type constraintRHS(constraintRHSSEXP);
+    Rcpp::traits::input_parameter< bool >::type maximise(maximiseSEXP);
+    rcpp_result_gen = Rcpp::wrap(glop_lp(objectiveCoefs, constraintMat, constraintRHS, maximise));
     return rcpp_result_gen;
 END_RCPP
 }

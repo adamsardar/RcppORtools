@@ -199,11 +199,26 @@ sols[ refProp > 0]
 
 ```{r}
 
-opt <- glop_lp(
-  objectiveCoefs = costVec,
-  constraintMat = t(constraintMat[names(costVec),]),
-  rhs = objectiveVec[colnames(constraintMat)]
+
+microbenchmark::microbenchmark(
+
+  glopt <- glop_lp(
+    objectiveCoefs = costVec,
+    constraintMat = t(constraintMat[names(costVec),]),
+    constraintRHS = objectiveVec[colnames(constraintMat)]
+  ),
+  
+opt <- Rglpk_solve_LP(
+  obj = costVec,
+  mat = t(constraintMat[names(costVec),]),
+  dir = rep(">=", length(objectiveVec)),
+  rhs = objectiveVec[colnames(constraintMat)],
+  types = "C",
+  max = FALSE
 )
+
+)
+  
 
 ```
 
