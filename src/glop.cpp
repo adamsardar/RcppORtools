@@ -20,8 +20,12 @@ List glop_lp(NumericVector objectiveCoefs,
   std::vector<operations_research::MPConstraint*> solverConstraints;
 
   CharacterVector objectiveNames = objectiveCoefs.names();   
-  // TODO check for names on obj
-    
+
+  //checking for conformable parameters
+  if(Rf_isNull(objectiveNames)){ throw std::invalid_argument("objectiveCoefs must be a named vector!"); }
+  if(constraintMat.nrow() != constraintRHS.length() ){ throw std::invalid_argument("constraintRHS is not the same size as the number of constraints in constraintMat!"); }
+  if(constraintMat.ncol() != objectiveCoefs.length() ){ throw std::invalid_argument("objectiveCoefs is not the same size as the number of variables in constraintMat!"); }
+
   operations_research::MPObjective* const objective = solver.MutableObjective();
 
   const double infty = solver.infinity();
@@ -39,8 +43,7 @@ List glop_lp(NumericVector objectiveCoefs,
     objective->SetCoefficient(solverObjectives.back(), *it.first);
   }
   
-  // check that rhs is the same length as nrows
-  // check that ncol is the same as obj coefs
+
   
   // constraints constraintMat
   for (int i=0; i < constraintMat.rows(); ++i){
@@ -71,11 +74,9 @@ List glop_lp(NumericVector objectiveCoefs,
     }
   }
   
-  // Bug in is_feasible
-  // include walltime
-  
   return Rcpp::List::create(Rcpp::Named("optimum") = objective->Value(),
                             Rcpp::Named("solution")  = solution,
+                            Rcpp::Named("walltime.ms")  = solver.wall_time(),
                             Rcpp::Named("is_optimal") = (result_status == operations_research::MPSolver::OPTIMAL),
-                            Rcpp::Named("is_feasible") = (result_status == operations_research::MPSolver::FEASIBLE) );
+                            Rcpp::Named("is_feasible") = (result_status == operations_research::MPSolver::FEASIBLE || result_status == operations_research::MPSolver::OPTIMAL) );
 }
