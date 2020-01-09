@@ -1,3 +1,6 @@
+#ifndef MAT2STDVECVEC_H
+#define MAT2STDVECVEC_H
+
 #include <RcppORtools.h>
 #include <Rcpp.h> 
 using namespace Rcpp;
@@ -32,3 +35,4 @@ List reflectMatrixToVecVec(IntegerMatrix mat2convert){
   return wrap(list);
 }
 
+#endif

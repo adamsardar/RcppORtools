@@ -196,6 +196,19 @@ sols[ refProp > 0]
 ```
 
 
+
+```{r}
+
+opt <- glop_lp(
+  objectiveCoefs = costVec,
+  constraintMat = t(constraintMat[names(costVec),]),
+  rhs = objectiveVec[colnames(constraintMat)]
+)
+
+```
+
+
+
 # Optimise for weight (off for a hike)
 
 

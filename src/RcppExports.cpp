@@ -16,6 +16,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// glop_lp
+List glop_lp(NumericVector objectiveCoefs, NumericMatrix constraintMat, NumericVector rhs, bool max);
+RcppExport SEXP _RcppORtools_glop_lp(SEXP objectiveCoefsSEXP, SEXP constraintMatSEXP, SEXP rhsSEXP, SEXP maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type objectiveCoefs(objectiveCoefsSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type constraintMat(constraintMatSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type rhs(rhsSEXP);
+    Rcpp::traits::input_parameter< bool >::type max(maxSEXP);
+    rcpp_result_gen = Rcpp::wrap(glop_lp(objectiveCoefs, constraintMat, rhs, max));
+    return rcpp_result_gen;
+END_RCPP
+}
 // reflectMatrixToVecVec
 List reflectMatrixToVecVec(IntegerMatrix mat2convert);
 RcppExport SEXP _RcppORtools_reflectMatrixToVecVec(SEXP mat2convertSEXP) {
@@ -55,6 +69,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_RcppORtools_orToolsVersion", (DL_FUNC) &_RcppORtools_orToolsVersion, 0},
+    {"_RcppORtools_glop_lp", (DL_FUNC) &_RcppORtools_glop_lp, 4},
     {"_RcppORtools_reflectMatrixToVecVec", (DL_FUNC) &_RcppORtools_reflectMatrixToVecVec, 1},
     {"_RcppORtools_singleVisitorTSP", (DL_FUNC) &_RcppORtools_singleVisitorTSP, 2},
     {"_RcppORtools_solveMultiKnapsackProblem", (DL_FUNC) &_RcppORtools_solveMultiKnapsackProblem, 3},

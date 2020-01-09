@@ -6,6 +6,11 @@ orToolsVersion <- function() {
     .Call('_RcppORtools_orToolsVersion', PACKAGE = 'RcppORtools')
 }
 
+#' @export
+glop_lp <- function(objectiveCoefs, constraintMat, rhs, max = FALSE) {
+    .Call('_RcppORtools_glop_lp', PACKAGE = 'RcppORtools', objectiveCoefs, constraintMat, rhs, max)
+}
+
 reflectMatrixToVecVec <- function(mat2convert) {
     .Call('_RcppORtools_reflectMatrixToVecVec', PACKAGE = 'RcppORtools', mat2convert)
 }
