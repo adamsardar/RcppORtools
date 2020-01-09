@@ -1,3 +1,7 @@
+  <!-- badges: start -->
+  [![Travis build status](https://travis-ci.org/adamsardar/RcppORtools.svg?branch=master)](https://travis-ci.org/adamsardar/RcppORtools)
+  <!-- badges: end -->
+
 # RcppORtools: Exploring integration of google's c++ ORtools library and R via Rcpp
 
 [Google OR's recent CP-SAT solver](https://developers.google.com/optimization/) has been made open source (Apache 2.0) under the GoogleAI initiative. I thought that it'd be interesting to explore its use via Rcpp. This R package version is derived from the version of or-tools that it was developed against.
