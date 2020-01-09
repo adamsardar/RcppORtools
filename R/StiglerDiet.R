@@ -1,8 +1,6 @@
 #' Stigler's minimum cost diet problem
 #' 
-#' From the 1945 paper:
-#' 
-#' "For a moderately active man weighing 154 pounds, how much of each of 77 foods should be eaten on a daily basis
+#' From the 1945 paper: "For a moderately active man weighing 154 pounds, how much of each of 77 foods should be eaten on a daily basis
 #'  so that the man’s intake of nine nutrients will be at least equal to the recommended dietary allowances (RDAs) 
 #'  suggested by the National Research Council in 1943, with the cost of the diet being minimal?"
 #' 
@@ -21,4 +19,4 @@
 #' @references \url{https://en.wikipedia.org/wiki/Stigler_diet}
 #' @references Stigler, George J. “The Cost of Subsistence.” Journal of Farm Economics 1945
 #' @format A list of two data.tables:  (nutrientRDA) RDA values of nutrients and (foodAvailable) a menu of food options alongside their nutritional information nd price. Nutrients are in amount per dollar. 
-"StiglerDiet.R"
+"StiglerDiet"
