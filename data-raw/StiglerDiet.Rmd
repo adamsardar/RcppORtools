@@ -17,6 +17,11 @@ https://pubsonline.informs.org/doi/pdf/10.1287/opre.49.1.1.11187
 
 https://math.berkeley.edu/~mgu/MA170F2015/Diet.pdf
 
+
+# Download Stigler Diert dataset from OR tools webpage
+
+This saves me having to transcribe it from the original 1940's manuscript!
+
 ```{r}
 
 library(rvest)
@@ -24,25 +29,28 @@ library(magrittr)
 library(data.table)
 
 StiglerDietData <- read_html("https://developers.google.com/optimization/lp/glop#data")
+```
 
-################
+Extract out the nutrient RDAs.
 
+```{r}
 nutrientConstraintsTable <- StiglerDietData %>%
   html_nodes("table") %>%
   .[[2]] %>%
   html_table() %>%
   as.data.table()
 
-setnames(nutrientConstraintsTable,
-         c("Nutrient","RDI"))
+setnames(nutrientConstraintsTable, c("Nutrient","RDI"))
 
 nutrientConstraintsTable[, RDI_value := str_extract(RDI, "[\\d,\\.]+") %>% str_replace(",","") %>% as.numeric()]
 nutrientConstraintsTable[, RDI_unit := str_extract(RDI, "\\w+$")]
 
 nutrientConstraintsTable[Nutrient == "Vitamin A", RDI_value := RDI_value/1000] # Menu choices before are in 1000's of IU
+```
 
-################
+And then the menu items, taking care to clean up the unusual data quantities
 
+```{r}
 menuChoicesTable <- StiglerDietData %>%
   html_nodes("table") %>%
   .[[3]] %>%
@@ -76,8 +84,11 @@ menuChoicesTable[, Weight_value := str_extract(Weight, "[\\d\\.]+") %>% as.numer
 setcolorder(menuChoicesTable, c('Commodity', 'Weight_unit', 'Weight_value'))
 
 menuChoicesTable[,1:3]
+```
 
-# Convert everything to oz
+Convert everything to oz (in cases where this is difficult, use nutrition per 100g from a regerence and map via calories).
+
+```{r}
 menuChoicesTable[Weight_unit == "oz"] # Do nothing
 
 # 16 oz in a lb
@@ -108,30 +119,36 @@ menuChoicesTable[Commodity %in% c("Eggs","Cream","Mayonnaise","Lemons","Oranges"
 
 ################
 
-menuChoicesTable[,unique(Weight_unit)]
+menuChoicesTable[,unique(Weight_unit)] # Everythin is in oz
 
 menuChoicesTable[,1:3]
 
 ```
+
+Save dataset for use in package
+
+```{r}
+
+StiglerDiet <- list(nutrientRDA = nutrientConstraintsTable,
+                    foodAvailable = menuChoicesTable)
+
+save(StiglerDiet, file = "./data/StiglerDiet.RData", compress = "xz")
+```
+
 
 
 # Optimise for price
 
 ```{r}
 
-# the solution vector x will be the length of the number of items: 77 in this case
-#costVec <- menuChoicesTable[,Price1939] # price per oz
 
 costVec <- rep(1, length(menuChoicesTable$Commodity)) # everything will be per dollar spent
 names(costVec) <- menuChoicesTable$Commodity
 
-# Data is in price per dollar
+# Data is in amount per dollar
 constraintMat <- menuChoicesTable[,as.matrix(.SD) ,
       .SDcols = !c("Commodity","Price1939","Weight","Weight_unit","Weight_value")]
-
 row.names(constraintMat) <- menuChoicesTable$Commodity
-
-nutrientConstraintsTable[Nutrient == "Calories", RDI_value := 2500]
 
 objectiveVec <- nutrientConstraintsTable$RDI_value
 names(objectiveVec) <- nutrientConstraintsTable$Nutrient

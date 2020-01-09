@@ -6,7 +6,7 @@ Maintainer: Adam Sardar <adam@sardar.me.uk>
 Description: Google have a fantastic set of tools for operations research.
     This package is in exploration of linking it to R via Rcpp and using it solve a few problems. Package version
     relates to the major.minor version of or-tools developed against.
-Depends: R (>= 3.1)
+Depends: R (>= 3.5)
 License: MPL-2.0
 Encoding: UTF-8
 LazyData: true
