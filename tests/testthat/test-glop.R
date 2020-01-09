@@ -1,7 +1,8 @@
-library(data.table)
-
 test_that("Testing GLOP with the Stigler diet, for which we know the answer", {
 
+  library(data.table)
+  data(StiglerDiet)
+  
   # Taken from https://developers.google.com/optimization/lp/glop
   refSol <-c(
       `Wheat Flour (Enriched)` = 0.029519,
@@ -9,8 +10,6 @@ test_that("Testing GLOP with the Stigler diet, for which we know the answer", {
       Cabbage = 0.011214,
       Spinach = 0.005008,
       `Navy Beans, Dried` = 0.061029)
-  
-  data(StiglerDiet)
   
   costVec <- rep(1, length(StiglerDiet$foodAvailable$Commodity)) # everything will be per dollar spent, so the cvec is all 1's
   names(costVec) <- StiglerDiet$foodAvailable$Commodity # Name the variables

@@ -13,10 +13,10 @@ LazyData: true
 LinkingTo:
     Rcpp
 Imports:
-    Rcpp (>= 1.0)
+    Rcpp (>= 1.0),
+     data.table (>= 1.12)
 RoxygenNote: 7.0.2
 Suggests:
-    data.table (>= 1.12),
     knitr,
     rmarkdown,
     purrr,

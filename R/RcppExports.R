@@ -32,6 +32,7 @@ orToolsVersion <- function() {
 #' @references \url{https://en.wikipedia.org/wiki/Linear_programming}
 #' 
 #' @examples
+#' library(data.table)
 #' data(StiglerDiet)
 #' 
 #' costVec <- rep(1, length(StiglerDiet$foodAvailable$Commodity)) # everything will be per dollar spent, so the cvec is all 1's

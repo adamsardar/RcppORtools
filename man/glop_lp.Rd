@@ -30,6 +30,7 @@ The primary OR-Tools linear optimization solver is Glop, Google's linear program
 This function provides a binding via Rcpp to the linear solver.
 }
 \examples{
+library(data.table)
 data(StiglerDiet)
 
 costVec <- rep(1, length(StiglerDiet$foodAvailable$Commodity)) # everything will be per dollar spent, so the cvec is all 1's
