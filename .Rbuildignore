@@ -4,3 +4,4 @@ README.md
 .gitignore
 ^\.travis\.yml$
 ^codecov\.yml$
+src/Makevars$

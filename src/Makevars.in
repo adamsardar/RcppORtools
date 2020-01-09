@@ -4,12 +4,9 @@ PRE_LIB = -Llib -Llib64
 CBC_LNK = -lCbcSolver -lCbc -lOsiCbc -lCgl -lClpSolver -lClp -lOsiClp -lOsi -lCoinUtils
 OR_TOOLS_LNK = $(PRE_LIB) -lprotobuf -lglog -lgflags $(CBC_LNK) -lortools
 
-# Seems to be a requirement to link to ORtools
-NO_SIGN_COMPARE = -Wno-sign-compare
-
 # set by configure
 ORtools_LIBLOC=@ORtools_LIBLOC@
 ORtools_INCLOC=@ORtools_INCLOC@
 
-PKG_CPPFLAGS = -I$(ORtools_INCLOC) -I../inst/include/ $(NO_SIGN_COMPARE) -L$(ORtools_LIBLOC) $(OR_TOOLS_LNK)
+PKG_CPPFLAGS = -I$(ORtools_INCLOC) -I../inst/include/ -L$(ORtools_LIBLOC) $(OR_TOOLS_LNK)
 PKG_LIBS = -L$(ORtools_LIBLOC) $(OR_TOOLS_LNK) -Wl,-rpath=$(ORtools_LIBLOC)
