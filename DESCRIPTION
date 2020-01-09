@@ -1,6 +1,6 @@
 Package: RcppORtools
 Title: Rcpp integration for google's ORtools
-Version: 7.0
+Version: 7.4
 Authors@R: c( person("Adam", "Sardar", email = "adam@sardar.me.uk", role = c("aut", "cre")) )
 Maintainer: Adam Sardar <adam@sardar.me.uk>
 Description: Google have a fantastic set of tools for operations research.
