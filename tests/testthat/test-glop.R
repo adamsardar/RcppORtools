@@ -10,18 +10,17 @@ test_that("Testing GLOP with the Stigler diet, for which we know the answer", {
   
   data(StiglerDiet)
   
-  costVec <- rep(1, length(menuChoicesTable$Commodity)) # everything will be per dollar spent, so the cvec is all 1's
-  names(costVec) <- menuChoicesTable$Commodity # Name the variables
+  costVec <- rep(1, length(StiglerDiet$foodAvailable$Commodity)) # everything will be per dollar spent, so the cvec is all 1's
+  names(costVec) <- StiglerDiet$foodAvailable$Commodity # Name the variables
   
   #Nutrient data is in amount per dollar
-  constraintMat <- menuChoicesTable[,as.matrix(.SD) ,
-                                    .SDcols = !c("Commodity","Price1939","Weight","Weight_unit","Weight_value")]
+  constraintMat <- StiglerDiet$foodAvailable[,as.matrix(.SD) ,
+                                             .SDcols = !c("Commodity","Price1939","Weight","Weight_unit","Weight_value")]
   
-  row.names(constraintMat) <- menuChoicesTable$Commodity
+  row.names(constraintMat) <- StiglerDiet$foodAvailable$Commodity
   
-  objectiveVec <- nutrientConstraintsTable$RDI_value
-  names(objectiveVec) <- nutrientConstraintsTable$Nutrient
-  
+  objectiveVec <- StiglerDiet$nutrientRDA$RDI_value
+  names(objectiveVec) <- StiglerDiet$nutrientRDA$Nutrient
   
   expect_error(  glop_lp(
     objectiveCoefs = c(costVec,0),
