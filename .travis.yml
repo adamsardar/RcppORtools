@@ -18,6 +18,9 @@ jobs:
       - name: "Mac"
         os: osx
         env: ORdownload=or-tools_MacOsX-10.14.6_v7.4.7247.tar.gz
+    allow_failures:
+      - name: "18.04"
+      - name: "Mac"
 
 cache: packages
 
@@ -32,3 +35,7 @@ before_script:
   
 after_success:
   - test $TRAVIS_OS_NAME == "linux" && travis_wait Rscript -e 'covr::codecov()' # Only produce coverage on linux builds
+  
+jobs:
+  allow_failures:
+    - env: ORdownload=or-tools_ubuntu-18.04_v7.4.7247.tar.gz 
