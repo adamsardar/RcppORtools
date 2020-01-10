@@ -8,6 +8,7 @@ r:
 jobs:
   allow_failures:
     - env: ORdownload=or-tools_ubuntu-18.04_v7.4.7247.tar.gz
+    - env: ORdownload=or-tools_MacOsX-10.14.6_v7.4.7247.tar.gz
   include:
     - name: "18.04"
       os: linux
