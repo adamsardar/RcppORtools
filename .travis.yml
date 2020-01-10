@@ -27,7 +27,7 @@ r_packages:
 before_script:
   - wget -O /tmp/ORtools.tar.gz "https://github.com/google/or-tools/releases/download/v7.4/$ORdownload"
   - tar -xvf /tmp/ORtools.tar.gz -C /tmp/
-  - export ORtoolsDIR=$(ls -1t /tmp/or-tools*/ | head -n 1)
+  - export ORtoolsDIR=$(echo /tmp/or-tools*)
   - echo $ORtoolsDIR
   
 after_success:
