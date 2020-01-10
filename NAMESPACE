@@ -7,3 +7,5 @@ export(solveMultiKnapsackProblem)
 import(Rcpp)
 import(data.table)
 useDynLib(RcppORtools)
+
+
