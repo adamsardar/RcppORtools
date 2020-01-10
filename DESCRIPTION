@@ -17,8 +17,5 @@ Imports:
     data.table (>= 1.12)
 RoxygenNote: 7.0.2
 Suggests:
-    knitr,
-    rmarkdown,
-    purrr,
     testthat (>= 2.1.0)
 VignetteBuilder: knitr
