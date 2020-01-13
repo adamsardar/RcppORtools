@@ -38,7 +38,7 @@ names(costVec) <- StiglerDiet$foodAvailable$Commodity # Name the variables
 
 #Nutrient data is in amount per dollar
 constraintMat <- StiglerDiet$foodAvailable[,as.matrix(.SD) ,
-                                            .SDcols = !c("Commodity","Price1939","Weight","Weight_unit","Weight_value")]
+                    .SDcols = !c("Commodity","Price1939","Weight","Weight_unit","Weight_value")]
                                    
 row.names(constraintMat) <- StiglerDiet$foodAvailable$Commodity
 
