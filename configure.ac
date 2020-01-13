@@ -14,14 +14,10 @@ AC_LANG(C++)
 AC_REQUIRE_CPP
 
 # Build up a location for OR tools, depending on 
-if [ -z "$ORtoolsDIR" ]; then
+if [-z "${ORtoolsDIR}"]; then
 
-  if [ -z "$ORtoolsInstallLoc" ]; then
-    
-     ORtoolsInstallLoc = "/opt/"
-  fi
-  
-  ORtoolsDIR = "$ORtoolsInstallLoc/ORtools"
+  [-z "${ORtoolsInstallLoc}"] && ORtoolsInstallLoc = "/opt/"
+  ORtoolsDIR = "${ORtoolsInstallLoc}/ORtools"
 fi
 
 ORtools_LIBLOC="$ORtoolsDIR/lib/"
