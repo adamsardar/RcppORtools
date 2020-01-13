@@ -13,13 +13,6 @@ AC_INIT(RcppORtools, m4_esyscmd_s([awk -e '/^Version:/ {print $2}' DESCRIPTION])
 AC_LANG(C++)
 AC_REQUIRE_CPP
 
-# Build up a location for OR tools, depending on 
-if [-z "${ORtoolsDIR}"]; then
-
-  [-z "${ORtoolsInstallLoc}"] && ORtoolsInstallLoc = "/opt/"
-  ORtoolsDIR = "${ORtoolsInstallLoc}/ORtools"
-fi
-
 ORtools_LIBLOC="$ORtoolsDIR/lib/"
 ORtools_INCLOC="$ORtoolsDIR/include/"
 

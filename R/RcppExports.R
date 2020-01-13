@@ -35,7 +35,8 @@ orToolsVersion <- function() {
 #' library(data.table)
 #' data(StiglerDiet)
 #' 
-#' costVec <- rep(1, length(StiglerDiet$foodAvailable$Commodity)) # everything will be per dollar spent, so the cvec is all 1's
+#' # everything will be per dollar spent, so the cvec is all 1's
+#' costVec <- rep(1, length(StiglerDiet$foodAvailable$Commodity)) 
 #' names(costVec) <- StiglerDiet$foodAvailable$Commodity # Name the variables
 #' 
 #' #Nutrient data is in amount per dollar
