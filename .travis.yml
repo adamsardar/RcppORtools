@@ -13,14 +13,14 @@ jobs:
     - name: "18.04"
       os: linux
       dist: bionic
-      env: ORdownload=or-tools_ubuntu-16.04_v7.4.7247.tar.gz # Not a mistake. The ORtools compiled bundle has GLIBC issues
+      env: ORdownload=or-tools_ubuntu-16.04_v7.4.7247.tar.gz ORtoolsDIR=$(echo /tmp/or-tools*) # Not a mistake. The ORtools compiled bundle has GLIBC issues
     - name: "16.04"
       os: linux
       dist: xenial
-      env: ORdownload=or-tools_ubuntu-16.04_v7.4.7247.tar.gz
+      env: ORdownload=or-tools_ubuntu-16.04_v7.4.7247.tar.gz ORtoolsDIR=$(echo /tmp/or-tools*)
     - name: "Mac"
       os: osx
-      env: ORdownload=or-tools_MacOsX-10.14.6_v7.4.7247.tar.gz
+      env: ORdownload=or-tools_MacOsX-10.14.6_v7.4.7247.tar.gz ORtoolsDIR=$(echo /tmp/or-tools*)
     
 cache: packages
 
@@ -30,7 +30,6 @@ r_packages:
 before_script:
   - wget -O /tmp/ORtools.tar.gz "https://github.com/google/or-tools/releases/download/v7.4/$ORdownload"
   - tar -xvf /tmp/ORtools.tar.gz -C /tmp/
-  - export ORtoolsDIR=$(echo /tmp/or-tools*)
   - echo $ORtoolsDIR
   
 after_failure:
