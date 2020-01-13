@@ -33,5 +33,8 @@ before_script:
   - export ORtoolsDIR=$(echo /tmp/or-tools*)
   - echo $ORtoolsDIR
   
+after_failure:
+  - cat src/Makevars
+
 after_success:
   - test $TRAVIS_OS_NAME == "linux" && travis_wait Rscript -e 'covr::codecov()' # Only produce coverage on linux builds

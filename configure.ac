@@ -13,16 +13,13 @@ AC_INIT(RcppORtools, m4_esyscmd_s([awk -e '/^Version:/ {print $2}' DESCRIPTION])
 AC_LANG(C++)
 AC_REQUIRE_CPP
 
-if [[ -v ORtoolsDIR ]]; then
-
- ORtools_LIBLOC="$ORtoolsDIR/lib/"
- ORtools_INCLOC="$ORtoolsDIR/include/"
-else
-
- #If not environment variable, then just assume that the libraries are installed under /opt/ORtools
- ORtools_LIBLOC="/opt/ORtools/lib/"
- ORtools_INCLOC="/opt/ORtools/include/"
+if [ -z "$ORtoolsDIR" ]; then
+ #If not environment variable, then assume that the libraries are installed under /opt/ORtools
+    ORtoolsDIR = "/opt/ORtools"
 fi
+
+ORtools_LIBLOC="$ORtoolsDIR/lib/"
+ORtools_INCLOC="$ORtoolsDIR/include/"
 
 # Now substitute these variables in src/Makevars.in to create src/Makevars
 AC_SUBST(ORtools_LIBLOC)
