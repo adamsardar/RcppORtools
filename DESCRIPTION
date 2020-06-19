@@ -1,8 +1,7 @@
 Package: RcppORtools
 Title: Rcpp integration for google's ORtools
 Version: 7.4
-Authors@R: c( person("Adam", "Sardar", email = "adam@sardar.me.uk", role = c("aut", "cre"), comment = c(ORCID="0000-0002-6912-6125")) )
-Maintainer: Adam Sardar <adam@sardar.me.uk>
+Authors@R: c( person("Adam", "Sardar", email = "adam@sardar.me.uk", role = c("aut", "cre","cph"), comment = c(ORCID="0000-0002-6912-6125")) )
 Description: Google have a fantastic set of tools for operations research.
     This package is in exploration of linking it to R via Rcpp and using it solve a few problems. Package version
     relates to the major.minor version of or-tools developed against.
